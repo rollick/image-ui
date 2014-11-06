@@ -1,0 +1,35 @@
+/* CSS declarations go here */
+
+
+body {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 1em;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.4em;
+  background: #222;
+  color: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+.links {
+  text-align: center;
+  display: block;
+}
+
+.links a {
+  color: orange;
+  text-decoration: none;
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  background-position: center center;
+  display: block;
+  float: left;
+}
+
+#blueimp-gallery .title {
+  display: none;
+}
