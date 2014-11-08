@@ -2,16 +2,12 @@
 
 
 body {
-  max-width: 750px;
-  margin: 0 auto;
-  padding: 1em;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   font-size: 1em;
   line-height: 1.4em;
   background: #222;
   color: #fff;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
 }
 
 .links {
@@ -23,11 +19,34 @@ body {
   color: orange;
   text-decoration: none;
   background-size: cover;
-  height: 100px;
-  width: 100px;
+  height: 160px;
+  width: 50%;
   background-position: center center;
   display: block;
   float: left;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out; 
+}
+
+@media only screen and (min-width: 24em) {
+  .links a {
+    width: 33.333%;
+    height: 140px;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .links a {
+    width: 25%;
+    height: 120px;
+  }
+}
+
+@media only screen and (min-width: 72em) {
+  .links a {
+    width: 10%;
+    height: 100px;
+  }
 }
 
 #blueimp-gallery .title {
