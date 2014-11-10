@@ -38,7 +38,7 @@ if (Meteor.isClient) {
 
   Template.gallery.helpers({
     images: function () {
-      return Images.find({}, {sort: {dateTaken: 1}}).fetch();
+      return Images.find({}, {sort: {dateTaken: -1}});
     }
   });
 
@@ -48,7 +48,7 @@ if (Meteor.isClient) {
 
   Template.image.helpers({
     imagePath: function () {
-      return "/uploads/images" + this.path.match(/\/Users\/onepercentclub\/Pictures\/Trip(.*?)$/)[1];
+      return "/uploads" + this.path.match(/\/var\/www\/sync(.*?)$/)[1];
     }
   });
 
