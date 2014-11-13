@@ -49,6 +49,10 @@ if (Meteor.isClient) {
   Template.image.helpers({
     imagePath: function () {
       return "/uploads" + this.path.match(/\/var\/www\/sync(.*?)$/)[1];
+    },
+
+    thumbPath: function () {
+      return "/thumbs/" + this.hash + ".jpg";
     }
   });
 

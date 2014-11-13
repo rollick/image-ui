@@ -26,6 +26,7 @@ body {
   float: left;
   -webkit-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out; 
+  overflow: hidden;
 }
 
 @media only screen and (min-width: 24em) {
