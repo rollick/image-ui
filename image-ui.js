@@ -29,7 +29,13 @@ if (Meteor.isServer) {
 
     console.log('Publishing images...')
 
-    return Images.find();
+    return Images.find({}, {
+      fields: {
+        _id: 1, 
+        dateTaken: 1,
+        hash: 1,
+        relative_path: 1
+      }});
   });
 }
 
@@ -38,7 +44,7 @@ if (Meteor.isClient) {
 
   Template.gallery.helpers({
     images: function () {
-      return Images.find({}, {sort: {dateTaken: 1}}).fetch();
+      return Images.find({}, {sort: {dateTaken: -1}});
     }
   });
 
@@ -48,7 +54,11 @@ if (Meteor.isClient) {
 
   Template.image.helpers({
     imagePath: function () {
-      return "/uploads/images" + this.path.match(/\/Users\/onepercentclub\/Pictures\/Trip(.*?)$/)[1];
+      return "/uploads" + this.relative_path;
+    },
+
+    thumbPath: function () {
+      return "/thumbs/" + this.hash + ".jpg";
     }
   });
 
