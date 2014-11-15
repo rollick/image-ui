@@ -5,12 +5,13 @@ if (Meteor.isServer) {
   //       servering the images. Production should use nginx etc.
   var fs = Npm.require('fs');
   WebApp.connectHandlers.use(function(req, res, next) {
-      var re = /^\/uploads\/(.*)$/.exec(req.url);
+      var re = /^\/([uploads|thumbs])\/(.*)$/.exec(req.url);
 
       // Only handle URLs that start with /uploads/*
-      if (re !== null) {   
-          var filePath = process.env.PWD + '/.uploads/' + re[1];
-          var data = fs.readFileSync(filePath, data);
+      if (re !== null) {
+          var filePath = process.env.PWD + '/.' + re[1] + '/' + re[2],
+              data = fs.readFileSync(filePath, data);
+
           res.writeHead(200, {
             'Content-Type': 'image'
           });
@@ -70,7 +71,7 @@ if (Meteor.isClient) {
       var target = event.target || event.srcElement,
         link = target.src ? target.parentNode : target,
         options = {index: link, event: event},
-        links = document.getElementsByTagName('a');
+        links = document.getElementById('links').getElementsByTagName('a');
 
       blueimp.Gallery(links, options);
     }
