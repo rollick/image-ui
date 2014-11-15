@@ -52,3 +52,23 @@ body {
 #blueimp-gallery .title {
   display: none;
 }
+
+.blueimp-gallery > .slides > .slide-loading {
+  background: url(/img/loading.gif) center no-repeat;
+}
+
+.blueimp-gallery > .slides > .slide-error {
+  background: url(/img/error.png) center no-repeat;
+}
+
+.blueimp-gallery > .play-pause {
+  background: url(/img/play-pause.png) 0 0 no-repeat;
+}
+
+body:last-child .blueimp-gallery > .slides > .slide-error {
+  background-image: url(/img/error.svg);
+}
+
+body:last-child .blueimp-gallery > .play-pause {
+  background-image: url(/img/play-pause.svg);
+}
