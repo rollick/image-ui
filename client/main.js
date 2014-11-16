@@ -47,13 +47,16 @@ Meteor.startup(function () {
 function toggleControl() {
     // Toggle the control of the slideshow, or leave as is if 
     // controlled by another user.
-    var newClientId = null;
+    var data = {clientId: null};
 
     if (Session.get('clientId') != Session.get('slideClientId')) {
-        newClientId = Session.get('clientId');
+        data.clientId = Session.get('clientId');
+
+        // Set the slide to the current index value
+        data.currentSlide = gallery.getIndex();
     }
 
-    Slideshow.update({_id: Session.get('slideshowId')}, {$set: {clientId: newClientId}});
+    Slideshow.update({_id: Session.get('slideshowId')}, {$set: data});
 };
 
 Template.main.events({
