@@ -7,7 +7,7 @@ Template.gallery.helpers({
 });
 
 Template.gallery.rendered = function() {
-  AnimatedEach.attachHooks(this.find(".links"));
+  AnimatedEach.attachHooks(this.find(".links"), this.find("body"));
 };
 
 Template.image.helpers({
