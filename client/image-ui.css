@@ -54,6 +54,26 @@ body {
   display: none;
 }
 
+#blueimp-gallery .control {
+  right: auto;
+  top: 15px;
+  left: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  position: absolute;
+  margin: 0 40px 0 0;
+  font-size: 20px;
+  line-height: 30px;
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+  opacity: .8;
+  display: none;
+}
+
+#blueimp-gallery.blueimp-gallery-controls .control {
+  display: block;
+}
+
 .blueimp-gallery > .slides > .slide-loading {
   background: url(/img/loading.gif) center no-repeat;
 }

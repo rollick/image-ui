@@ -44,18 +44,34 @@ Meteor.startup(function () {
     });
 });
 
+function toggleControl() {
+    // Toggle the control of the slideshow, or leave as is if 
+    // controlled by another user.
+    var newClientId = null;
+
+    if (Session.get('clientId') != Session.get('slideClientId')) {
+        newClientId = Session.get('clientId');
+    }
+
+    Slideshow.update({_id: Session.get('slideshowId')}, {$set: {clientId: newClientId}});
+};
+
+Template.main.events({
+    'click .control': function () {
+        toggleControl();
+    }
+});
+
+Template.main.helpers({
+    hasControl: function () {
+        return Session.get('clientId') == Session.get('slideClientId');
+    }
+});
+
 Template.gallery.rendered = function () {
     $('body').on('keydown', function (event) { 
         if (event.keyCode == 83) { // 's' key
-            // Toggle the control of the slideshow, or leave as is if 
-            // controlled by another user.
-            var newClientId = null;
-
-            if (Session.get('clientId') != Session.get('slideClientId')) {
-                newClientId = Session.get('clientId');
-            }
-
-            Slideshow.update({_id: Session.get('slideshowId')}, {$set: {clientId: newClientId}});
+            toggleControl();
         }
     }); 
 };
