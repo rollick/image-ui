@@ -6,10 +6,6 @@ Template.gallery.helpers({
   }
 });
 
-Template.gallery.rendered = function() {
-  AnimatedEach.attachHooks(this.find(".links"), this.find("body"));
-};
-
 Template.image.helpers({
   imagePath: function () {
     return "/uploads" + this.relative_path;
