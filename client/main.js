@@ -81,17 +81,18 @@ Template.gallery.rendered = function () {
 
 Template.gallery.helpers({
   images: function () {
-    return Images.find({}, {sort: {dateTaken: -1}});
+    return Images.find({}, {sort: {date_taken: -1}});
   }
 });
 
 Template.image.helpers({
   imagePath: function () {
-    return '/uploads' + this.relative_path;
+    // Image size returned should be based on browser window size
+    return '/resized/' + this.hash + '_large.jpg';
   },
 
   thumbPath: function () {
-    return '/thumbs/' + this.hash + '.jpg';
+    return '/resized/' + this.hash + '_thumb.jpg';
   }
 });
 

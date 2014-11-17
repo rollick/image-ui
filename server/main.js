@@ -15,9 +15,10 @@ Meteor.publish("images", function (limit) {
     return Images.find({}, {
         fields: {
             _id: 1, 
-            dateTaken: 1,
+            date_taken: 1,
             hash: 1,
-            relative_path: 1
+            relative_path: 1,
+            exif: 1
         }
     });
 });
