@@ -88,7 +88,18 @@ Template.gallery.helpers({
 Template.image.helpers({
   imagePath: function () {
     // Image size returned should be based on browser window size
-    return '/resized/' + this.hash + '_large.jpg';
+    var maxSize = Math.max(window.outerWidth, window.outerHeight),
+        sizeLabel = 'small';
+
+    if (maxSize > 640 && maxSize <= 1024) {
+        sizeLabel = 'medium';
+    } else if (maxSize > 1024 && maxSize <= 1280) {
+        sizeLabel = 'large';
+    } else {
+        sizeLabel = 'xlarge';
+    }
+
+    return '/resized/' + this.hash + '_' + sizeLabel + '.jpg';
   },
 
   thumbPath: function () {

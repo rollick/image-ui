@@ -2,7 +2,7 @@
 //       servering the images. Production should use nginx etc.
 var fs = Npm.require('fs');
 WebApp.connectHandlers.use(function(req, res, next) {
-  var re = /^\/(uploads|thumbs)\/(.*)$/.exec(req.url);
+  var re = /^\/(uploads|resized)\/(.*)$/.exec(req.url);
 
   console.log(req.url)
 
