@@ -4,6 +4,7 @@ Meteor.subscribe('slideshow');
 window.gallery = gallery = null;
 
 Meteor.startup(function () {
+    Session.setDefault('sortDir', -1);
     Session.set('clientId', Math.random().toString(36).slice(2));
 
     Tracker.autorun(function (computation) {
@@ -59,6 +60,19 @@ function toggleControl() {
     Slideshow.update({_id: Session.get('slideshowId')}, {$set: data});
 };
 
+function toggleSort() {
+    // Toggle sorting the gallery.
+    Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
+}
+
+Template.main.rendered = function (argument) {
+    $('body').on('keydown', function (event) {
+        if (event.keyCode == 83) { // 's' key for sort
+            toggleSort();
+        }
+    }); 
+};
+
 Template.main.events({
     'click .control': function () {
         toggleControl();
@@ -72,8 +86,8 @@ Template.main.helpers({
 });
 
 Template.gallery.rendered = function () {
-    $('body').on('keydown', function (event) { 
-        if (event.keyCode == 83) { // 's' key
+    $('body').on('keydown', function (event) {
+        if (event.keyCode == 67) { // 'c' key for control
             toggleControl();
         }
     }); 
@@ -81,7 +95,7 @@ Template.gallery.rendered = function () {
 
 Template.gallery.helpers({
   images: function () {
-    return Images.find({}, {sort: {date_taken: -1}});
+    return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
   }
 });
 
