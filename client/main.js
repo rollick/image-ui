@@ -99,6 +99,10 @@ Template.gallery.helpers({
   }
 });
 
+Template.gallery.rendered = function() {
+  AnimatedEach.attachHooks(this.find("#links"));
+};
+
 Template.image.helpers({
   imagePath: function () {
     // Image size returned should be based on browser window size
