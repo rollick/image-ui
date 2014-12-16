@@ -4,7 +4,7 @@ Meteor.subscribe('slideshow');
 window.gallery = gallery = null;
 
 Meteor.startup(function () {
-    Session.setDefault('sortDir', -1);
+    Session.setDefault('sortDir', 1);
     Session.set('clientId', Math.random().toString(36).slice(2));
 
     Tracker.autorun(function (computation) {
