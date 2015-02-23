@@ -83,13 +83,13 @@ Router.route('/:galleryId', function () {
     this.render('Gallery');
 });
 
-Template.gallery.events({
+Template.Gallery.events({
     'click .control': function () {
         toggleControl();
     }
 });
 
-Template.gallery.helpers({
+Template.Gallery.helpers({
     images: function () {
         return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
     },
@@ -99,7 +99,7 @@ Template.gallery.helpers({
     }
 });
 
-Template.gallery.rendered = function() {
+Template.Gallery.rendered = function() {
     AnimatedEach.attachHooks(this.find("#links"));
 
     $('body').on('keydown', function (event) {
@@ -109,7 +109,7 @@ Template.gallery.rendered = function() {
     }); 
 };
 
-Template.image.helpers({
+Template.Image.helpers({
   imagePath: function () {
     // Image size returned should be based on browser window size
     var maxSize = Math.max(window.outerWidth, window.outerHeight),
@@ -131,7 +131,7 @@ Template.image.helpers({
   }
 });
 
-Template.image.events({
+Template.Image.events({
   'click a': function (event, template) {
     event.preventDefault();
 

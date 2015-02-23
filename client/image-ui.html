@@ -4,7 +4,7 @@
 
 <body></body>
 
-<template name="home">
+<template name="Home">
   <section class="banner">
     <h1>A place for photos</h1>
     <div class="background-image">
@@ -12,7 +12,7 @@
   </section>
 </template>
 
-<template name="gallery">
+<template name="Gallery">
   <div id="blueimp-gallery" class="blueimp-gallery">
       <div class="slides"></div>
       <h3 class="title"></h3>
@@ -28,11 +28,11 @@
 
   <div id="links" class="links">
     {{#each images}}
-      {{> image this}}
+      {{> Image this}}
     {{/each}}
   </div>
 </template>
 
-<template name="image">
+<template name="Image">
   <a href="{{imagePath}}" title="" style="background-image: url('{{thumbPath}}')"></a>
 </template>
