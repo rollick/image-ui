@@ -78,8 +78,8 @@ Router.route('/', function () {
     this.render('Home');
 });
 
-Router.route('/:_id', function () {
-    var images = Images.find({gallery_id: this.params._id}, {sort: {date_taken: Session.get('sortDir')}});
+Router.route('/:galleryId', function () {
+    Session.set('galleryId', this.params.galleryId);
     
     if (images.count()) {
         this.render('Gallery');
