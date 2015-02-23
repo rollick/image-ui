@@ -1,4 +1,3 @@
-Meteor.subscribe('images');
 Meteor.subscribe('slideshow');
     
 window.gallery = gallery = null;
@@ -43,6 +42,16 @@ Meteor.startup(function () {
             Slideshow.update({_id: slideshow._id}, {$set: {currentSlide: currentSlide}});
         }
     });
+
+    Tracker.autorun(function (computation) {
+        var galleryId = Session.get('galleryId');
+
+        // Return if the slideshow collection hasn't been loaded
+        if (! galleryId) return;
+
+        // Fetch images based on galleryId
+        self.gallerySubscription = Meteor.subscribe("image", {galleryId: galleryId});
+    });
 });
 
 function toggleControl() {
@@ -65,42 +74,44 @@ function toggleSort() {
     Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
 }
 
-Template.main.rendered = function (argument) {
-    $('body').on('keydown', function (event) {
-        if (event.keyCode == 83) { // 's' key for sort
-            toggleSort();
-        }
-    }); 
-};
+Router.route('/', function () {
+    this.render('Home');
+});
 
-Template.main.events({
+Router.route('/:_id', function () {
+    var images = Images.find({gallery_id: this.params._id}, {sort: {date_taken: Session.get('sortDir')}});
+    
+    if (images.count()) {
+        this.render('Gallery');
+    } else {
+        this.redirect('/');
+    }
+});
+
+Template.gallery.events({
     'click .control': function () {
         toggleControl();
     }
 });
 
-Template.main.helpers({
+Template.gallery.helpers({
+    images: function () {
+        return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
+    },
+
     hasControl: function () {
         return Session.get('clientId') == Session.get('slideClientId');
     }
 });
 
-Template.gallery.rendered = function () {
+Template.gallery.rendered = function() {
+    AnimatedEach.attachHooks(this.find("#links"));
+
     $('body').on('keydown', function (event) {
         if (event.keyCode == 67) { // 'c' key for control
             toggleControl();
         }
     }); 
-};
-
-Template.gallery.helpers({
-  images: function () {
-    return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
-  }
-});
-
-Template.gallery.rendered = function() {
-  AnimatedEach.attachHooks(this.find("#links"));
 };
 
 Template.image.helpers({

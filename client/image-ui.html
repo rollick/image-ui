@@ -2,11 +2,17 @@
   <title>Gallery</title>
 </head>
 
-<body>
-  {{> main}}
-</body>
+<body></body>
 
-<template name="main">
+<template name="home">
+  <section class="banner">
+    <h1>A place for photos</h1>
+    <div class="background-image">
+    </div>
+  </section>
+</template>
+
+<template name="gallery">
   <div id="blueimp-gallery" class="blueimp-gallery">
       <div class="slides"></div>
       <h3 class="title"></h3>
@@ -20,10 +26,6 @@
       <ol class="indicator"></ol>
   </div>
 
-  {{> gallery}}
-</template>
-
-<template name="gallery">
   <div id="links" class="links">
     {{#each images}}
       {{> image this}}
