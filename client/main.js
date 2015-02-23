@@ -50,7 +50,7 @@ Meteor.startup(function () {
         if (! galleryId) return;
 
         // Fetch images based on galleryId
-        self.gallerySubscription = Meteor.subscribe("image", {galleryId: galleryId});
+        self.gallerySubscription = Meteor.subscribe("image", galleryId);
     });
 });
 
@@ -80,12 +80,7 @@ Router.route('/', function () {
 
 Router.route('/:galleryId', function () {
     Session.set('galleryId', this.params.galleryId);
-    
-    if (images.count()) {
-        this.render('Gallery');
-    } else {
-        this.redirect('/');
-    }
+    this.render('Gallery');
 });
 
 Template.gallery.events({
