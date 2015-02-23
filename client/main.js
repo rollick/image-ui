@@ -50,7 +50,7 @@ Meteor.startup(function () {
         if (! galleryId) return;
 
         // Fetch images based on galleryId
-        self.gallerySubscription = Meteor.subscribe("image", galleryId);
+        self.gallerySubscription = Meteor.subscribe("images", {galleryId: Session.get('galleryId')});
     });
 });
 

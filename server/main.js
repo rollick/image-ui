@@ -5,11 +5,16 @@ Meteor.startup(function () {
     }
 });
 
-Meteor.publish("images", function (galleryId) {
-    check(galleryId, String);
+Meteor.publish("images", function (options) {
+    if (! options.galleryId) return [];
+
+    if (typeof options.limit == 'undefined') {
+        options.limit = 99;
+    }
 
     console.log('Publishing images...');
-    return Images.find({gallery_id: galleryId}, {
+
+    return Images.find({gallery_id: options.galleryId}, {
         fields: {
             _id: 1, 
             date_taken: 1,
