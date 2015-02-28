@@ -1,3 +1,5 @@
+Galleries = new Mongo.Collection("galleries");
+
 Meteor.startup(function () {
     // If there is no slideshow then create one
     if (Slideshow.find().count() == 0) {
@@ -12,8 +14,13 @@ Meteor.publish("images", function (options) {
         options.limit = 99;
     }
 
-    console.log('Publishing images...');
+    // Check if the gallery requires an answer to a question
+    var gallery = Galleries.findOne({_id: options.galleryId});
+    if (gallery.question && (!options.answer || options.answer != gallery.answer)) {
+        throw new Meteor.Error(401, "Incorrect answer to question", gallery.question);
+    }
 
+    console.log('Publishing images...');
     return Images.find({gallery_id: options.galleryId}, {
         fields: {
             _id: 1, 

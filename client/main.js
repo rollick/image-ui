@@ -44,13 +44,26 @@ Meteor.startup(function () {
     });
 
     Tracker.autorun(function (computation) {
-        var galleryId = Session.get('galleryId');
+        var galleryId = Session.get('galleryId'),
+            answer = Session.get('answer');
 
         // Return if the slideshow collection hasn't been loaded
         if (! galleryId) return;
 
-        // Fetch images based on galleryId
-        self.gallerySubscription = Meteor.subscribe("images", {galleryId: Session.get('galleryId')});
+        // Fetch images based on galleryId.
+        // Pass gallery question answer if one is set.
+        self.gallerySubscription = Meteor.subscribe("images", {galleryId: galleryId, answer: answer}, {
+            onError: function (response) {
+                // Is it a question / answer error?
+                if (response.error == 401) {
+                    // Display question with answer form by setting the question variable
+                    Session.set('question', response.details);
+                }
+            }, 
+            onReady: function (response) {
+                Session.set('question', null);
+            }
+        });
     });
 });
 
@@ -79,7 +92,9 @@ Router.route('/', function () {
 });
 
 Router.route('/:galleryId', function () {
+    Session.set('answer', null);
     Session.set('galleryId', this.params.galleryId);
+    
     this.render('Gallery');
 });
 
@@ -90,6 +105,9 @@ Template.Gallery.events({
 });
 
 Template.Gallery.helpers({
+    question: function () {
+        return Session.get('question');
+    },
     images: function () {
         return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
     },
@@ -108,6 +126,16 @@ Template.Gallery.rendered = function() {
         }
     }); 
 };
+
+Template.Question.events({
+    'submit': function (event, template) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        var answer = template.find('.qa .answer input').value;
+        Session.set('answer', answer);
+    }
+});
 
 Template.Image.helpers({
   imagePath: function () {

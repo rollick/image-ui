@@ -30,7 +30,6 @@ section.banner {
   text-align: center;
 }
 
-
 section.banner .background-image:before {
   height: 100%;
   padding: 0px 0px 100%;
@@ -89,6 +88,58 @@ section.banner h1 {
   -webkit-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out; 
   overflow: hidden;
+}
+
+@media only screen and (min-width: 24em) {
+  .qa {
+    width: 100%; 
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .qa {
+    width: 450px; 
+  }
+}
+
+.qa {
+  text-align: center;
+  margin-left: auto; 
+  margin-right: auto;
+  margin-top: 35%;
+  top: 0;
+  bottom: 0;
+}
+
+.qa div,
+.qa form {
+  padding: 10px;
+}
+
+.qa .question {
+  font-size: 2em;
+  line-height: 1.2em;
+  font-weight: 200;
+}
+
+.qa .answer {
+  margin-top: 10px;
+  background-color: #111;
+  text-align: center;
+}
+
+.qa .answer input {
+  border: none;
+  background-color: transparent;
+  width: 95%;
+}
+
+.qa .answer input[type="text"] {
+  font-size: 2em;
+  line-height: 1.2em;
+  text-align: center;
+  color: white;
+  font-weight: 100;
 }
 
 .blueimp-gallery > .control,
