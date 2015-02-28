@@ -16,7 +16,7 @@ Meteor.publish("images", function (options) {
 
     // Check if the gallery requires an answer to a question
     var gallery = Galleries.findOne({_id: options.galleryId});
-    if (gallery.question && (!options.answer || options.answer != gallery.answer)) {
+    if (gallery.question && (!options.answer || options.answer.toLowerCase() != gallery.answer.toLowerCase())) {
         throw new Meteor.Error(401, "Incorrect answer to question", gallery.question);
     }
 

@@ -139,6 +139,11 @@ Template.Question.events({
 
         var answer = template.find('.qa .answer input').value;
         Session.set('answer', answer);
+    },
+
+    'keyup input': function (event, template) {
+        var answer = template.find('.qa .answer input').value;
+        if (answer.length == 0) Session.set('incorrectAnswer', false);
     }
 });
 
@@ -147,6 +152,10 @@ Template.Question.helpers({
         return Session.get('incorrectAnswer') ? 'incorrect' : '';
     }
 });
+
+Template.Question.rendered = function() {
+    this.find('input').focus();
+}
 
 Template.Image.helpers({
   imagePath: function () {

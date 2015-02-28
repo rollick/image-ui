@@ -106,7 +106,7 @@ section.banner h1 {
   text-align: center;
   margin-left: auto; 
   margin-right: auto;
-  margin-top: 35%;
+  margin-top: 100px;
   top: 0;
   bottom: 0;
 }
@@ -119,13 +119,14 @@ section.banner h1 {
 .qa .question {
   font-size: 2em;
   line-height: 1.2em;
-  font-weight: 200;
+  font-weight: 100;
 }
 
 .qa .answer {
   margin-top: 10px;
   background-color: #111;
   text-align: center;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .qa .answer.incorrect {
@@ -136,6 +137,7 @@ section.banner h1 {
   border: none;
   background-color: transparent;
   width: 95%;
+  outline: none;
 }
 
 .qa .answer input[type="text"] {
@@ -143,7 +145,7 @@ section.banner h1 {
   line-height: 1.2em;
   text-align: center;
   color: white;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 .blueimp-gallery > .control,
