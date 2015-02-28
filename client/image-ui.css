@@ -128,6 +128,10 @@ section.banner h1 {
   text-align: center;
 }
 
+.qa .answer.incorrect {
+  background-color: red;
+}
+
 .qa .answer input {
   border: none;
   background-color: transparent;

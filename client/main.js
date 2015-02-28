@@ -58,6 +58,10 @@ Meteor.startup(function () {
                 if (response.error == 401) {
                     // Display question with answer form by setting the question variable
                     Session.set('question', response.details);
+
+                    // If there is already an answer then the visitor has entered
+                    // an incorrect answer. Set variable to indicate this.
+                    if (Session.get('answer')) Session.set('incorrectAnswer', true);
                 }
             }, 
             onReady: function (response) {
@@ -93,8 +97,9 @@ Router.route('/', function () {
 
 Router.route('/:galleryId', function () {
     Session.set('answer', null);
+    Session.set('incorrectAnswer', false);
     Session.set('galleryId', this.params.galleryId);
-    
+
     this.render('Gallery');
 });
 
@@ -134,6 +139,12 @@ Template.Question.events({
 
         var answer = template.find('.qa .answer input').value;
         Session.set('answer', answer);
+    }
+});
+
+Template.Question.helpers({
+    cls: function () {
+        return Session.get('incorrectAnswer') ? 'incorrect' : '';
     }
 });
 
