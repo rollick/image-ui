@@ -1,4 +1,8 @@
 Meteor.subscribe('slideshow');
+
+Session.setDefault('answer', null);
+Session.setDefault('incorrectAnswer', null);
+Session.setDefault('galleryId', null);
     
 window.gallery = gallery = null;
 answerTimer = questionTimer = null;
@@ -34,49 +38,49 @@ Meteor.startup(function () {
     Session.setDefault('sortDir', 1);
     Session.set('clientId', Math.random().toString(36).slice(2));
 
-    Tracker.autorun(function (computation) {
-        // There should only be one Slideshow for now
-        var slideshow = Slideshow.findOne();
-        if (slideshow) { 
-            Session.set('slideshowId', slideshow._id);
-            Session.set('currentSlide', slideshow.currentSlide);
-            Session.set('slideClientId', slideshow.clientId);
+    // Tracker.autorun(function (computation) {
+    //     // There should only be one Slideshow for now
+    //     var slideshow = Slideshow.findOne();
+    //     if (slideshow) { 
+    //         Session.set('slideshowId', slideshow._id);
+    //         Session.set('currentSlide', slideshow.currentSlide);
+    //         Session.set('slideClientId', slideshow.clientId);
 
-            // Only do something with the current slide index if the gallery
-            // has been loaded by the user.
-            if (! gallery) return;
+    //         // Only do something with the current slide index if the gallery
+    //         // has been loaded by the user.
+    //         if (! gallery) return;
 
-            // Update the current slideshow if the current slide index is different
-            if (slideshow.currentSlide != gallery.getIndex()) {
-                gallery.slide(slideshow.currentSlide);
-            }
-        }
-    });
+    //         // Update the current slideshow if the current slide index is different
+    //         if (slideshow.currentSlide != gallery.getIndex()) {
+    //             gallery.slide(slideshow.currentSlide);
+    //         }
+    //     }
+    // });
     
-    Tracker.autorun(function (computation) {
-        var currentSlide = Session.get('currentSlide'),
-            slideshow = Slideshow.findOne();
+    // Tracker.autorun(function (computation) {
+    //     var currentSlide = Session.get('currentSlide'),
+    //         slideshow = Slideshow.findOne();
 
-        // Return if the slideshow collection hasn't been loaded
-        if (! slideshow) return;
+    //     // Return if the slideshow collection hasn't been loaded
+    //     if (! slideshow) return;
 
-        // Updating the currentSlide is only possible if:
-        // 1) the client has been set as the owner of the slideshow
-        if (slideshow.clientId != Session.get('clientId')) return;
+    //     // Updating the currentSlide is only possible if:
+    //     // 1) the client has been set as the owner of the slideshow
+    //     if (slideshow.clientId != Session.get('clientId')) return;
 
-        // Now check if the current slide index is different to the 
-        // stored value in the slideshow collection
-        if (slideshow && slideshow.currentSlide != currentSlide) {
-            Slideshow.update({_id: slideshow._id}, {$set: {currentSlide: currentSlide}});
-        }
-    });
+    //     // Now check if the current slide index is different to the 
+    //     // stored value in the slideshow collection
+    //     if (slideshow && slideshow.currentSlide != currentSlide) {
+    //         Slideshow.update({_id: slideshow._id}, {$set: {currentSlide: currentSlide}});
+    //     }
+    // });
 
     Tracker.autorun(function (computation) {
         var galleryId = Session.get('galleryId'),
             answer = Session.get('answer');
 
         // Return if the slideshow collection hasn't been loaded
-        if (! galleryId) return;
+        // if (! galleryId) return;
 
         // Fetch images based on galleryId.
         // Pass gallery question answer if one is set.
@@ -93,8 +97,8 @@ Meteor.startup(function () {
                         Session.set('incorrectAnswer', true);
 
                         // clear incorrect answer flag after short time
-                        Meteor.clearInterval(answerTimer);
-                        answerTimer = Meteor.setInterval(function () {
+                        Meteor.clearTimeout(answerTimer);
+                        answerTimer = Meteor.setTimeout(function () {
                             Session.set('incorrectAnswer', null);
                         }, 500)
                     }
@@ -106,8 +110,8 @@ Meteor.startup(function () {
                 // Setting incorrect above will briefly indicate to the user
                 // that they have correctly answered the question. Below will
                 // set question to null causing the images to display.
-                Meteor.clearInterval(answerTimer);
-                questionTimer = Meteor.setInterval(function () {
+                Meteor.clearTimeout(questionTimer);
+                questionTimer = Meteor.setTimeout(function () {
                     Session.set('question', null);
                 }, 500)
             }
@@ -140,15 +144,23 @@ Router.route('/', function () {
     max_x = document.body.clientWidth - document.body.clientWidth/10;
     max_y = document.body.clientHeight - document.body.clientHeight/10;
 
-    Meteor.subscribe('galleries');
+    Session.setDefault('showGalleryLinks', false);
+    Meteor.subscribe('galleries', { 
+        onReady: function (response) {
+            Session.set('showGalleryLinks', true);
+        }
+    });
     this.render('Home');
 });
 
 Router.route('/:galleryId', function () {
     Session.set('answer', null);
+    Session.set('question', null);
     Session.set('incorrectAnswer', null);
     Session.set('galleryId', this.params.galleryId);
 
+    Meteor.clearTimeout(answerTimer);
+    Meteor.clearTimeout(questionTimer);
     this.render('Gallery');
 });
 
@@ -171,7 +183,12 @@ Template.GalleryLink.rendered = function() {
     } while(check_overlap(area));
     
     filled_areas.push(area);
-    element.css({left:rand_x, top: rand_y});
+
+    // display gallery link with random delay
+    var items = [100, 200, 300, 400, 500],
+        delay = items[Math.floor(Math.random()*items.length)];
+
+    element.css({left:rand_x, top: rand_y}).delay(delay).addClass('show');
 };
 
 Template.Gallery.events({

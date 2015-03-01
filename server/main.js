@@ -16,7 +16,9 @@ Meteor.publish("galleries", function () {
 });
 
 Meteor.publish("images", function (options) {
-    if (! options.galleryId) return [];
+    if (! options.galleryId) {
+        return this.stop();
+    }
 
     if (typeof options.limit == 'undefined') {
         options.limit = 99;

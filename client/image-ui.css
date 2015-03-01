@@ -40,6 +40,13 @@ section.banner .gallery-link {
   color: #ccc;
   font-weight: 200;
   white-space: nowrap;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out; 
+}
+
+section.banner .gallery-link.show {
+  opacity: 1;
 }
 
 section.banner .gallery-link:hover {
