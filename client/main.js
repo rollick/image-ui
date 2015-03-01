@@ -144,6 +144,8 @@ Router.route('/', function () {
     max_x = document.body.clientWidth - document.body.clientWidth/10;
     max_y = document.body.clientHeight - document.body.clientHeight/10;
 
+    Session.setDefault('galleryId', null);
+
     Session.setDefault('showGalleryLinks', false);
     Meteor.subscribe('galleries', { 
         onReady: function (response) {
