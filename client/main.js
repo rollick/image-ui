@@ -2,6 +2,8 @@ Meteor.subscribe('slideshow');
     
 window.gallery = gallery = null;
 
+answerTimer = questionTimer = null;
+
 Meteor.startup(function () {
     Session.setDefault('sortDir', 1);
     Session.set('clientId', Math.random().toString(36).slice(2));
@@ -61,11 +63,27 @@ Meteor.startup(function () {
 
                     // If there is already an answer then the visitor has entered
                     // an incorrect answer. Set variable to indicate this.
-                    if (Session.get('answer')) Session.set('incorrectAnswer', true);
+                    if (Session.get('answer')) {
+                        Session.set('incorrectAnswer', true);
+
+                        // clear incorrect answer flag after short time
+                        Meteor.clearInterval(answerTimer);
+                        answerTimer = Meteor.setInterval(function () {
+                            Session.set('incorrectAnswer', null);
+                        }, 500)
+                    }
                 }
             }, 
             onReady: function (response) {
-                Session.set('question', null);
+                Session.set('incorrectAnswer', false);
+
+                // Setting incorrect above will briefly indicate to the user
+                // that they have correctly answered the question. Below will
+                // set question to null causing the images to display.
+                Meteor.clearInterval(answerTimer);
+                questionTimer = Meteor.setInterval(function () {
+                    Session.set('question', null);
+                }, 500)
             }
         });
     });
@@ -97,7 +115,7 @@ Router.route('/', function () {
 
 Router.route('/:galleryId', function () {
     Session.set('answer', null);
-    Session.set('incorrectAnswer', false);
+    Session.set('incorrectAnswer', null);
     Session.set('galleryId', this.params.galleryId);
 
     this.render('Gallery');
@@ -143,13 +161,19 @@ Template.Question.events({
 
     'keyup input': function (event, template) {
         var answer = template.find('.qa .answer input').value;
-        if (answer.length == 0) Session.set('incorrectAnswer', false);
+        if (answer.length == 0) Session.set('incorrectAnswer', null);
     }
 });
 
 Template.Question.helpers({
     cls: function () {
-        return Session.get('incorrectAnswer') ? 'incorrect' : '';
+        if (Session.get('incorrectAnswer') == null) {
+            return '';
+        } else if (Session.get('incorrectAnswer')) {
+            return 'incorrect';
+        } else {
+            return 'correct';
+        }
     }
 });
 

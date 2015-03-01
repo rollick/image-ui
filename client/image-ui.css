@@ -135,6 +135,10 @@ section.banner h1 {
   background-color: red;
 }
 
+.qa .answer.correct {
+  background-color: green;
+}
+
 .qa .answer input {
   border: none;
   background-color: transparent;
@@ -148,6 +152,7 @@ section.banner h1 {
   text-align: center;
   color: white;
   font-weight: 400;
+  text-transform: uppercase;
 }
 
 .blueimp-gallery > .control,
