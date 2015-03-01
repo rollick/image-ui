@@ -90,18 +90,6 @@ section.banner h1 {
   overflow: hidden;
 }
 
-@media only screen and (min-width: 24em) {
-  .qa {
-    width: 100%; 
-  }
-}
-
-@media only screen and (min-width: 48em) {
-  .qa {
-    width: 450px; 
-  }
-}
-
 .qa {
   text-align: center;
   margin-left: auto; 
@@ -113,15 +101,24 @@ section.banner h1 {
   border-radius: 5px;
 }
 
-.qa div,
-.qa form {
-  padding: 10px;
+.question {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.qa {
+  width: 100%;
 }
 
 .qa .question {
-  font-size: 2em;
-  line-height: 1.2em;
-  font-weight: 100;
+  font-size: 2.2em;
+  line-height: 1.6em;
+  font-weight: 400;
+}
+
+.qa div,
+.qa form {
+  padding: 10px;
 }
 
 .qa .answer {
@@ -147,12 +144,81 @@ section.banner h1 {
 }
 
 .qa .answer input[type="text"] {
-  font-size: 2em;
-  line-height: 1.2em;
+  font-size: 2.2em;
+  line-height: 2.2em;
   text-align: center;
   color: white;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+@media only screen and (min-width: 24em) {
+  .question {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .qa {
+    width: 100%;
+  }
+
+  .qa .question {
+    font-size: 2em;
+    line-height: 1.6em;
+    font-weight: 400;
+  }
+
+  .qa .answer input[type="text"] {
+    font-size: 2em;
+    line-height: 2em;
+    font-weight: 400;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .question {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .qa {
+    width: 350px;
+  }
+
+  .qa .question {
+    font-size: 2em;
+    line-height: 1.4em;
+    font-weight: 100;
+  }
+
+  .qa .answer input[type="text"] {
+    font-size: 2em;
+    line-height: 2em;
+    font-weight: 400;
+  }
+}
+
+@media only screen and (min-width: 72em) {
+  .question {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .qa {
+    width: 450px;
+  }
+
+  .qa .question {
+    font-size: 2em;
+    line-height: 1.2em;
+    font-weight: 100;
+  }
+
+  .qa .answer input[type="text"] {
+    font-size: 1.8em;
+    line-height: 1.8em;
+    font-weight: 200;
+  }
 }
 
 .blueimp-gallery > .control,

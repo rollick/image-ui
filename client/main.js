@@ -131,6 +131,9 @@ Template.Gallery.helpers({
     question: function () {
         return Session.get('question');
     },
+    questionCls: function () {
+        return Session.get('question') ? 'question' : '';
+    },
     images: function () {
         return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
     },
