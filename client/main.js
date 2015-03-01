@@ -137,8 +137,8 @@ function toggleSort() {
 
 Router.route('/', function () {
     filled_areas = new Array();
-    max_x = document.body.clientWidth;
-    max_y = document.body.clientHeight;
+    max_x = document.body.clientWidth - document.body.clientWidth/10;
+    max_y = document.body.clientHeight - document.body.clientHeight/10;
 
     Meteor.subscribe('galleries');
     this.render('Home');

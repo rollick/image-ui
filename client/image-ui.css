@@ -33,9 +33,9 @@ section.banner {
 section.banner .gallery-link {
   position: absolute;
   text-decoration: none;
-  font-size: 1.5em;
+  font-size: 2.5em;
   background: rgba(0, 0, 0, 0.2);
-  padding: 12px;
+  padding: 20px;
   border-radius: 5px;
   color: #ccc;
   font-weight: 200;
