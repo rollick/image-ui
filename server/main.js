@@ -1,10 +1,18 @@
-Galleries = new Mongo.Collection("galleries");
-
 Meteor.startup(function () {
     // If there is no slideshow then create one
     if (Slideshow.find().count() == 0) {
         Slideshow.insert({});
     }
+});
+
+Meteor.publish("galleries", function () {
+    console.log('Publishing galleries...');
+    return Galleries.find({}, {
+        fields: {
+            _id: 1,
+            name: 1
+        }
+    });
 });
 
 Meteor.publish("images", function (options) {
