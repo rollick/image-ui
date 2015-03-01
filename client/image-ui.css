@@ -32,20 +32,23 @@ section.banner {
 
 section.banner .gallery-link {
   position: absolute;
-  width: 150px;
   text-decoration: none;
   font-size: 1.5em;
   background: rgba(0, 0, 0, 0.2);
-  padding: 12px 0px;
+  padding: 12px;
   border-radius: 5px;
   color: #ccc;
   font-weight: 200;
+  white-space: nowrap;
 }
 
 section.banner .gallery-link:hover {
   background: rgba(0, 0, 0, 0.4);
+  -ms-transform: scale(1.5);
   -moz-transform: scale(1.5);
-  zoom: 1.5;
+  -o-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 section.banner .background-image:before {
