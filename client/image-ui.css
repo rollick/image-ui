@@ -35,7 +35,7 @@ section.banner .gallery-link {
   width: 150px;
   text-decoration: none;
   font-size: 1.5em;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   padding: 12px 0px;
   border-radius: 5px;
   color: #ccc;
@@ -43,7 +43,7 @@ section.banner .gallery-link {
 }
 
 section.banner .gallery-link:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.4);
   -moz-transform: scale(1.5);
   zoom: 1.5;
 }

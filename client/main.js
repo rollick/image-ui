@@ -4,9 +4,9 @@ window.gallery = gallery = null;
 answerTimer = questionTimer = null;
 
 var min_x = 0,
-    max_x = 200,
+    max_x = 0,
     min_y = 0,
-    max_y = 200,
+    max_y = 0,
     filled_areas = new Array();
 
 function check_overlap(area) {
@@ -137,8 +137,10 @@ function toggleSort() {
 
 Router.route('/', function () {
     filled_areas = new Array();
-    Meteor.subscribe('galleries');
+    max_x = document.body.clientWidth;
+    max_y = document.body.clientHeight;
 
+    Meteor.subscribe('galleries');
     this.render('Home');
 });
 
