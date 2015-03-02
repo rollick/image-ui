@@ -74,9 +74,64 @@ Meteor.startup(function () {
     //         Slideshow.update({_id: slideshow._id}, {$set: {currentSlide: currentSlide}});
     //     }
     // });
+});
 
-    Tracker.autorun(function (computation) {
-        var galleryId = Session.get('galleryId'),
+function toggleControl() {
+    // Toggle the control of the slideshow, or leave as is if 
+    // controlled by another user.
+    var data = {clientId: null};
+
+    if (Session.get('clientId') != Session.get('slideClientId')) {
+        data.clientId = Session.get('clientId');
+
+        // Set the slide to the current index value
+        data.currentSlide = gallery.getIndex();
+    }
+
+    Slideshow.update({_id: Session.get('slideshowId')}, {$set: data});
+};
+
+function toggleSort() {
+    // Toggle sorting the gallery.
+    Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
+}
+
+Router.route('/', {
+    onBeforeAction: function () {
+        filled_areas = new Array();
+        max_x = document.body.clientWidth;
+        max_y = document.body.clientHeight;
+
+        Session.setDefault('showGalleryLinks', false);
+        this.next();
+    },
+
+    subscriptions: function() {
+        Meteor.subscribe('galleries', { 
+            onReady: function (response) {
+                Session.set('showGalleryLinks', true);
+            }
+        });
+    },
+
+    action: function () {
+        // render all templates and regions for this route
+        this.render('Home');
+    }
+});
+
+Router.route('/:galleryId', {
+    onStop: function () {
+        Session.set('answer', null);
+        Session.set('question', null);
+        Session.set('incorrectAnswer', null);
+        
+        Meteor.clearTimeout(answerTimer);
+        Meteor.clearTimeout(questionTimer);
+    },
+
+    subscriptions: function() {
+        var galleryId = this.params.galleryId,
             answer = Session.get('answer');
 
         // Return if the slideshow collection hasn't been loaded
@@ -84,7 +139,7 @@ Meteor.startup(function () {
 
         // Fetch images based on galleryId.
         // Pass gallery question answer if one is set.
-        self.gallerySubscription = Meteor.subscribe("images", {galleryId: galleryId, answer: answer}, {
+        this.subscribe("images", {galleryId: galleryId, answer: answer}, {
             onError: function (response) {
                 // Is it a question / answer error?
                 if (response.error == 401) {
@@ -116,54 +171,11 @@ Meteor.startup(function () {
                 }, 500)
             }
         });
-    });
-});
+    },
 
-function toggleControl() {
-    // Toggle the control of the slideshow, or leave as is if 
-    // controlled by another user.
-    var data = {clientId: null};
-
-    if (Session.get('clientId') != Session.get('slideClientId')) {
-        data.clientId = Session.get('clientId');
-
-        // Set the slide to the current index value
-        data.currentSlide = gallery.getIndex();
+    action: function () {
+        this.render('Gallery');
     }
-
-    Slideshow.update({_id: Session.get('slideshowId')}, {$set: data});
-};
-
-function toggleSort() {
-    // Toggle sorting the gallery.
-    Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
-}
-
-Router.route('/', function () {
-    filled_areas = new Array();
-    max_x = document.body.clientWidth - document.body.clientWidth/10;
-    max_y = document.body.clientHeight - document.body.clientHeight/10;
-
-    Session.setDefault('galleryId', null);
-
-    Session.setDefault('showGalleryLinks', false);
-    Meteor.subscribe('galleries', { 
-        onReady: function (response) {
-            Session.set('showGalleryLinks', true);
-        }
-    });
-    this.render('Home');
-});
-
-Router.route('/:galleryId', function () {
-    Session.set('answer', null);
-    Session.set('question', null);
-    Session.set('incorrectAnswer', null);
-    Session.set('galleryId', this.params.galleryId);
-
-    Meteor.clearTimeout(answerTimer);
-    Meteor.clearTimeout(questionTimer);
-    this.render('Gallery');
 });
 
 Template.Home.helpers({
@@ -209,7 +221,6 @@ Template.Gallery.helpers({
     images: function () {
         return Images.find({}, {sort: {date_taken: Session.get('sortDir')}});
     },
-
     hasControl: function () {
         return Session.get('clientId') == Session.get('slideClientId');
     }
