@@ -35,6 +35,8 @@ Router.route('/:galleryId', {
     },
 
     subscriptions: function() {
+        Session.set('loading', true);
+
         var galleryId = this.params.galleryId,
             answer = Session.get('answer');
 
@@ -62,6 +64,8 @@ Router.route('/:galleryId', {
                         }, 500)
                     }
                 }
+
+                Session.set('loading', false);
             }, 
             onReady: function (response) {
                 Session.set('incorrectAnswer', false);
@@ -71,8 +75,10 @@ Router.route('/:galleryId', {
                 // set question to null causing the images to display.
                 Meteor.clearTimeout(questionTimer);
                 questionTimer = Meteor.setTimeout(function () {
+                    Session.set('loading', false);
                     Session.set('question', null);
                 }, 500)
+
             }
         });
     },

@@ -3,6 +3,7 @@ Template.Question.events({
         event.stopPropagation();
         event.preventDefault();
 
+
         var answer = template.find('.qa .answer input').value;
         Session.set('answer', answer);
     },
@@ -14,6 +15,10 @@ Template.Question.events({
 });
 
 Template.Question.helpers({
+    loaderCls: function () {
+        return Session.get('loading') ? 'show' : '';
+    },
+
     cls: function () {
         if (Session.get('incorrectAnswer') == null) {
             return '';
