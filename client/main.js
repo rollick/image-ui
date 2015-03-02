@@ -91,11 +91,6 @@ function toggleControl() {
     Slideshow.update({_id: Session.get('slideshowId')}, {$set: data});
 };
 
-function toggleSort() {
-    // Toggle sorting the gallery.
-    Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
-}
-
 Router.route('/', {
     onBeforeAction: function () {
         filled_areas = new Array();
@@ -229,11 +224,11 @@ Template.Gallery.helpers({
 Template.Gallery.rendered = function() {
     AnimatedEach.attachHooks(this.find("#links"));
 
-    $('body').on('keydown', function (event) {
-        if (event.keyCode == 67) { // 'c' key for control
+    $('body').keypress(function (eventData, event) {
+        if (String.fromCharCode(eventData.keyCode) == 'c') { // 'c' key for control
             toggleControl();
-        } else if (event.keyCode == 83) { // 's' key for sort
-            toggleSort();
+        } else if (String.fromCharCode(eventData.keyCode) == 's') { // 's' key for sort
+            Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
         }
     }); 
 };
