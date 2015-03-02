@@ -69,16 +69,15 @@ Router.route('/:galleryId', {
             }, 
             onReady: function (response) {
                 Session.set('incorrectAnswer', false);
+                Session.set('loading', false);
 
                 // Setting incorrect above will briefly indicate to the user
                 // that they have correctly answered the question. Below will
                 // set question to null causing the images to display.
                 Meteor.clearTimeout(questionTimer);
                 questionTimer = Meteor.setTimeout(function () {
-                    Session.set('loading', false);
                     Session.set('question', null);
                 }, 500)
-
             }
         });
     },
