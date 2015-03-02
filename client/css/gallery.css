@@ -1,0 +1,90 @@
+.blueimp-gallery > .control,
+.blueimp-gallery > .play-pause,
+.blueimp-gallery > .close {
+  font-size: 60px;
+  line-height: 60px;
+}
+
+@media only screen and (min-width: 24em) {
+  .links a {
+    width: 33.333%;
+    height: 160px;
+  }
+
+  .blueimp-gallery > .control,
+  .blueimp-gallery > .play-pause,
+  .blueimp-gallery > .close {
+    font-size: 50px;
+    line-height: 50px;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .links a {
+    width: 25%;
+    height: 160px;
+  }
+
+  .blueimp-gallery > .control,
+  .blueimp-gallery > .play-pause,
+  .blueimp-gallery > .close {
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
+
+@media only screen and (min-width: 72em) {
+  .links a {
+    width: 10%;
+    height: 100px;
+  }
+
+  .blueimp-gallery > .control,
+  .blueimp-gallery > .play-pause,
+  .blueimp-gallery > .close {
+    font-size: 30px;
+    line-height: 30px;
+  }
+}
+
+#blueimp-gallery .title {
+  display: none;
+}
+
+#blueimp-gallery .control {
+  right: auto;
+  top: 15px;
+  left: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  position: absolute;
+  margin: 0 40px 0 0;
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+  opacity: .8;
+  display: none;
+}
+
+#blueimp-gallery.blueimp-gallery-controls .control {
+  display: block;
+}
+
+.blueimp-gallery > .slides > .slide-loading {
+  background: url(/img/loading.gif) center no-repeat;
+}
+
+.blueimp-gallery > .slides > .slide-error {
+  background: url(/img/error.png) center no-repeat;
+}
+
+.blueimp-gallery > .play-pause {
+  background: url(/img/play-pause.png) 0 0 no-repeat;
+}
+
+body:last-child .blueimp-gallery > .slides > .slide-error {
+  background-image: url(/img/error.svg);
+}
+
+body:last-child .blueimp-gallery > .play-pause {
+  background-image: url(/img/play-pause.svg);
+}

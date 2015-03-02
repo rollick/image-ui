@@ -1,0 +1,18 @@
+.links {
+  text-align: center;
+  display: block;
+}
+
+.links a {
+  color: orange;
+  text-decoration: none;
+  background-size: cover;
+  height: 160px;
+  width: 50%;
+  background-position: center center;
+  display: block;
+  float: left;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out; 
+  overflow: hidden;
+}
