@@ -1,3 +1,31 @@
+.gallery-link {
+  position: absolute;
+  text-decoration: none;
+  font-size: 2.5em;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 5px;
+  color: #aaa;
+  font-weight: 100;
+  white-space: nowrap;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out; 
+}
+
+.gallery-link.show {
+  opacity: 1;
+}
+
+.gallery-link:hover {
+  background: rgba(0, 0, 0, 0.8);
+  -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
 .links {
   text-align: center;
   display: block;

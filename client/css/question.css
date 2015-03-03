@@ -54,11 +54,11 @@
 
 .loader > div {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   background-color: #666;
-  margin-top: 10px;
+  margin-top: 14px;
   -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
   animation: bouncedelay 1.4s infinite ease-in-out;
   -webkit-animation-fill-mode: both;
@@ -117,6 +117,7 @@
   background-color: transparent;
   width: 95%;
   outline: none;
+  padding: 10px;
 }
 
 .qa .answer input[type="text"] {
