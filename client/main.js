@@ -7,3 +7,5 @@ Meteor.startup(function () {
     Session.setDefault('incorrectAnswer', null);
     Session.setDefault('galleryId', null);
 });
+
+pckry = null;

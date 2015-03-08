@@ -1,18 +1,27 @@
-section.banner {
-  box-sizing: border-box;
-  color: #222;
-  display: table;
-  font-size: 14px;
-  height: 619px;
-  min-height: 150px;
-  position: relative;
-  text-align: center;
-  text-rendering: optimizelegibility;
-  display: table;
-  text-align: center;
+.home {
+  background: url("/img/home.svg") repeat scroll 0% 0% transparent;
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  left: 5px;
+  position: absolute;
+  top: 5px;
+  z-index: 1;
+  cursor: pointer;
+  background-size: 25px 25px;
+  opacity: 0.6;
+  transition: opacity 0.5s ease-in-out;
 }
 
-section.banner .background-image:before {
+.home:hover {
+  opacity: 1;
+}
+
+.home.away {
+  opacity: 0;
+}
+
+.background-image:before {
   height: 100%;
   padding: 0px 0px 100%;
   padding-bottom: 100%;
@@ -35,7 +44,21 @@ section.banner .background-image:before {
   z-index: -1;
 }
 
-section.banner h1 {
+.banner {
+  color: #222;
+  font-size: 14px;
+  height: 619px;
+  min-height: 150px;
+  position: relative;
+  text-align: center;
+  text-rendering: optimizelegibility;
+  text-align: center;
+  padding: 0;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.banner h1 {
   color: #FFF;
   font-size: 3em;
   font-weight: 200;

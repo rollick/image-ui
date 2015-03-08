@@ -16,6 +16,12 @@ function toggleControl() {
 Template.Gallery.events({
     'click .control': function () {
         toggleControl();
+    },
+
+    'click .home': function () {
+        $('.home').addClass('away').promise().done(function() {
+            Router.go('/');
+        });
     }
 });
 
@@ -43,42 +49,5 @@ Template.Gallery.rendered = function() {
         } else if (String.fromCharCode(eventData.keyCode) == 's') { // 's' key for sort
             Session.set('sortDir', Session.get('sortDir') > 0 ? -1 : 1);
         }
-    }); 
-
-    // this.autorun(function (computation) {
-    //     // There should only be one Slideshow for now
-    //     var slideshow = Slideshow.findOne({gallery_id: });
-    //     if (slideshow) { 
-    //         Session.set('slideshowId', slideshow._id);
-    //         Session.set('currentSlide', slideshow.currentSlide);
-    //         Session.set('slideClientId', slideshow.clientId);
-
-    //         // Only do something with the current slide index if the gallery
-    //         // has been loaded by the user.
-    //         if (! gallery) return;
-
-    //         // Update the current slideshow if the current slide index is different
-    //         if (slideshow.currentSlide != gallery.getIndex()) {
-    //             gallery.slide(slideshow.currentSlide);
-    //         }
-    //     }
-    // });
-    
-    // this.autorun(function (computation) {
-    //     var currentSlide = Session.get('currentSlide'),
-    //         slideshow = Slideshow.findOne();
-
-    //     // Return if the slideshow collection hasn't been loaded
-    //     if (! slideshow) return;
-
-    //     // Updating the currentSlide is only possible if:
-    //     // 1) the client has been set as the owner of the slideshow
-    //     if (slideshow.clientId != Session.get('clientId')) return;
-
-    //     // Now check if the current slide index is different to the 
-    //     // stored value in the slideshow collection
-    //     if (slideshow && slideshow.currentSlide != currentSlide) {
-    //         Slideshow.update({_id: slideshow._id}, {$set: {currentSlide: currentSlide}});
-    //     }
-    // });
+    });
 };
