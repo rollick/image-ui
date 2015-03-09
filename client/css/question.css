@@ -65,6 +65,12 @@
   animation-fill-mode: both; 
 }
 
+.container.phone .loader > div {
+  width: 100px;
+  height: 100px;
+  margin-top: 25px;
+}
+
 .qa {
   text-align: center;
   margin-left: auto; 
