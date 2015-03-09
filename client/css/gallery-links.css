@@ -25,6 +25,7 @@
   box-sizing: border-box;
   margin: 0;
   margin-top: 10px;
+  font-size: 5em;
 }
 
 /*@media only screen and (min-width: 24em) {
@@ -55,6 +56,10 @@
   line-height: 1.2em;
   text-decoration: none;
   color: #ccc;
+}
+
+.container.phone .gallery-link a {
+  line-height: 2.2em;
 }
 
 .gallery-link:hover {
