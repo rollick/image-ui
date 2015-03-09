@@ -19,6 +19,14 @@
   opacity: 0;
 }
 
+.container.phone .gallery-link {
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  margin-top: 10px;
+}
+
 /*@media only screen and (min-width: 24em) {
   .gallery-link {
     width: 45%;
