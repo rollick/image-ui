@@ -203,9 +203,10 @@
 }
 
 .container.phone .qa .question {
-  font-size: 3em;
+  font-size: 5em;
   line-height: 1.2em;
   font-weight: 200;
+  padding: 15px;
 }
 
 .container.phone .qa .answer input[type="text"] {
