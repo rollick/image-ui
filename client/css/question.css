@@ -116,6 +116,7 @@
 
 .qa .answer.correct {
   background-color: green;
+  transition: background-color 0.2s ease-in;
 }
 
 .qa .answer input {

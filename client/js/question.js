@@ -14,6 +14,10 @@ Template.Question.events({
 });
 
 Template.Question.helpers({
+    isCorrect: function () {
+        return !(Session.get('incorrectAnswer') == null || Session.get('incorrectAnswer'));
+    },
+
     loaderCls: function () {
         return Session.get('loading') ? 'show' : '';
     },
