@@ -38,7 +38,8 @@ Meteor.publish("images", function (options) {
             hash: 1,
             relative_path: 1,
             exif: 1,
-            gallery_id: 1
+            gallery_id: 1,
+            tags: 1
         }
     });
 });
