@@ -56,6 +56,24 @@
 .blueimp-gallery > .close {
   font-size: 60px;
   line-height: 60px;
+  font-weight: 200;
+}
+
+.container.phone .blueimp-gallery .next,
+.container.phone .blueimp-gallery .prev {
+  width: 100px;
+  font-size: 10em;
+  padding-top: 20px;
+  border-radius: 55px;
+}
+
+.container.phone .blueimp-gallery > a {
+  font-size: 100px;
+}
+
+.container.phone .blueimp-gallery > .control {
+  top: 25px;
+  font-size: 60px;
 }
 
 @media only screen and (min-width: 24em) {

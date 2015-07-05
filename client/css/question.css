@@ -127,7 +127,7 @@
   padding: 10px;
 }
 
-.qa .answer input[type="text"] {
+.qa .answer input[type="password"] {
   font-size: 2.2em;
   line-height: 2.2em;
   text-align: center;
@@ -152,7 +152,7 @@
     font-weight: 400;
   }
 
-  .qa .answer input[type="text"] {
+  .qa .answer input[type="password"] {
     font-size: 2em;
     line-height: 1em;
     font-weight: 400;
@@ -175,7 +175,7 @@
     font-weight: 100;
   }
 
-  .qa .answer input[type="text"] {
+  .qa .answer input[type="password"] {
     font-size: 2em;
     line-height: 1em;
     font-weight: 400;
@@ -198,7 +198,7 @@
     font-weight: 100;
   }
 
-  .qa .answer input[type="text"] {
+  .qa .answer input[type="password"] {
     font-size: 1.8em;
     line-height: 0.9em;
     font-weight: 200;
@@ -216,7 +216,7 @@
   padding: 15px;
 }
 
-.container.phone .qa .answer input[type="text"] {
+.container.phone .qa .answer input[type="password"] {
   font-size: 4em;
   line-height: 2em;
   font-weight: 200;
